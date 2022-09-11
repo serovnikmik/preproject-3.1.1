@@ -1,6 +1,9 @@
 package com.example.demo.user.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "user")
@@ -12,12 +15,18 @@ public class User{
     private Long Id;
 
     @Column(name="name")
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 3, max = 15, message = "Name should be between 3 and 15 characters")
     private String name;
 
     @Column(name="age")
+    @NotNull
+    @Min(value = 0, message = "Age should be a positive number")
+    @Max(value = 100, message = "Are u really older than 100?")
     private int age;
 
     @Column(name="email")
+    @Email(message = "email should have special structure")
     private String email;
 
     public User(){

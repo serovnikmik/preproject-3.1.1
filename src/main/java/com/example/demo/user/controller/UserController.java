@@ -5,7 +5,10 @@ import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(path = "user")
@@ -37,7 +40,6 @@ public class UserController {
 
     @DeleteMapping("{id}")
     public String delete(@PathVariable Long id){
-        System.out.println("trying to delete: " + userService.getUserById(id));
         userService.delete(id);
         return "redirect:/user/list";
     }
@@ -49,8 +51,11 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute User user){
-        System.out.println("trying to create user: " + user);
+    public String create(@ModelAttribute @Valid User user, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "create";
+        }
+
         userService.save(user);
         return "redirect:/user/list";
     }
@@ -62,7 +67,11 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute User user){
+    public String update(@PathVariable Long id, @ModelAttribute @Valid User user,
+                         BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "edit";
+        }
         userService.update(id, user.getName(), user.getAge(), user.getEmail());
         return "redirect:/user/{id}";
     }

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 
+<form th:method="PATCH" th:action="@{/user/{id}(id=${user.getId()})}" th:object="${user}">
 
-<form th:method="POST" th:action="@{/user/create}" th:object="${user}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:rebeccapurple"
@@ -27,7 +26,8 @@
          th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
     <br/>
 
-    <input type="submit" value="Create!"/>
+    <input type="submit" value="Update!"/>
+
 </form>
 
 </body>
