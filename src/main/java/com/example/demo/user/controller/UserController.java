@@ -2,6 +2,7 @@ package com.example.demo.user.controller;
 
 import com.example.demo.user.model.User;
 import com.example.demo.user.service.UserService;
+import com.example.demo.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,12 +75,6 @@ public class UserController {
         }
         userService.update(id, user.getName(), user.getAge(), user.getEmail());
         return "redirect:/user/{id}";
-    }
-
-    @GetMapping("/addExamples")
-    public String addExamples(){
-        userService.addExamples();
-        return "redirect:/user/list";
     }
 
     @GetMapping("/deleteAll")
