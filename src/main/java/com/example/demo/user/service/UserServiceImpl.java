@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -43,13 +44,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Transactional
-    public void update(Long userId, String name, int age, String email){
-        User userOptional = userRepository.findById(userId)
+    public void update(User user){
+        User userOptional = userRepository.findById(user.getId())
                 .orElseThrow(() -> new IllegalStateException(
-                        "user with id: " + userId + "does not exist"));
-        userOptional.setName(name);
-        userOptional.setAge(age);
-        userOptional.setEmail(email);
+                        "user with id: " + user.getId() + "does not exist"));
+        userOptional.setName(user.getName());
+        userOptional.setAge(user.getAge());
+        userOptional.setEmail(user.getEmail());
     }
 
     @Transactional

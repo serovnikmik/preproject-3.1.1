@@ -73,7 +73,8 @@ public class UserController {
         if (bindingResult.hasErrors()){
             return "edit";
         }
-        userService.update(id, user.getName(), user.getAge(), user.getEmail());
+        userService.update(user);
+//        userService.update(id, user.getName(), user.getAge(), user.getEmail());
         return "redirect:/user/{id}";
     }
 
